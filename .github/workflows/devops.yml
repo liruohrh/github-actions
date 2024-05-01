@@ -1,0 +1,14 @@
+name: build and delopy
+on: push
+  branches:
+   - main
+jobs:
+  build:
+    name: npm build
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - run: pwd && ls -al
+      - run: npm install
+      - run: npm run build
+
