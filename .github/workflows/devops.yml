@@ -1,22 +1,22 @@
-name: build and delopy
-on:
-  push:
-    branches:
-      - main
-permissions:
-  contents: write
-jobs:
-  build:
-    name: npm构建vite项目
-    runs-on: ubuntu-latest
-    steps:
-      - name: 用git拉取项目
-        uses: actions/checkout@v4
-      - run: pwd && ls -al
-      - name: 安装node依赖&&构建node项目
-        run: npm install && npm run build
-      - name: 部署github pages(即push构建目录dist到gh-pages分支)
-        uses: JamesIves/github-pages-deploy-action@v4
-        with:
-          branch: gh-pages
-          folder: dist
+# name: build and delopy
+# on:
+#   push:
+#     branches:
+#       - main
+# permissions:
+#   contents: write
+# jobs:
+#   build:
+#     name: npm构建vite项目
+#     runs-on: ubuntu-latest
+#     steps:
+#       - name: 用git拉取项目
+#         uses: actions/checkout@v4
+#       - run: pwd && ls -al
+#       - name: 安装node依赖&&构建node项目
+#         run: npm install && npm run build
+#       - name: 部署github pages(即push构建目录dist到gh-pages分支)
+#         uses: JamesIves/github-pages-deploy-action@v4
+#         with:
+#           branch: gh-pages
+#           folder: dist

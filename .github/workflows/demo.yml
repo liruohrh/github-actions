@@ -1,19 +1,19 @@
-on: push
-name: demo
-jobs:
-  job1:
-    name: "job1 work"
-    runs-on: ubuntu-latest
-    steps:
-      - name: look pwd
-        run: pwd
-      - name: look ls
-        run: ls
-  job2:
-    name: "job2 work"
-    runs-on: ubuntu-latest
-    steps:
-      - name: look go
-        run: go version
-      - name: look node
-        run: node --version
+# on: push
+# name: demo
+# jobs:
+#   job1:
+#     name: "job1 work"
+#     runs-on: ubuntu-latest
+#     steps:
+#       - name: look pwd
+#         run: pwd
+#       - name: look ls
+#         run: ls
+#   job2:
+#     name: "job2 work"
+#     runs-on: ubuntu-latest
+#     steps:
+#       - name: look go
+#         run: go version
+#       - name: look node
+#         run: node --version
