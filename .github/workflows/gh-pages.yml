@@ -27,7 +27,7 @@ jobs:
       - name: Setup Pages
         uses: actions/configure-pages@v5
       - name: 安装node依赖&&构建node项目
-        run: npm install && npm run build --outDir=./_site
+        run: npm install && npm run build -- --outDir=./_site
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
 
