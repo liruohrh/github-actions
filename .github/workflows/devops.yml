@@ -1,7 +1,8 @@
 name: build and delopy
-on: push
-  branches:
-   - main
+on:
+  push:
+    branches:
+      - main
 jobs:
   build:
     name: npm build
@@ -11,4 +12,3 @@ jobs:
       - run: pwd && ls -al
       - run: npm install
       - run: npm run build
-
