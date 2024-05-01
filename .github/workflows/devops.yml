@@ -15,7 +15,7 @@ jobs:
       - run: pwd && ls -al
       - name: 安装node依赖&&构建node项目
         run: npm install && npm run build
-      - name: 部署github pages
+      - name: 部署github pages(即push构建目录dist到gh-pages分支)
         uses: JamesIves/github-pages-deploy-action@v4
         with:
           branch: gh-pages
