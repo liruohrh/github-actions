@@ -3,12 +3,20 @@ on:
   push:
     branches:
       - main
+permissions:
+  contents: write
 jobs:
   build:
-    name: npm build
+    name: npm构建vite项目
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - name: 用git拉取项目
+        uses: actions/checkout@v4
       - run: pwd && ls -al
-      - run: npm install
-      - run: npm run build
+      - name: 安装node依赖&&构建node项目
+        run: npm install && npm run build
+      - name: 部署github pages
+        uses: JamesIves/github-pages-deploy-action@v4
+        with:
+          branch: gh-pages
+          folder: dist
