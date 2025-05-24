@@ -19,7 +19,7 @@ jobs:
         id: ls
         run: |
           ls -al
-          ls -al ./artifacts/
+          ls -al /
 
       #   - name: Download artifact
       #     uses: actions/download-artifact@v4
