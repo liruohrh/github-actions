@@ -1,0 +1,28 @@
+name: all
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  actions: write
+
+jobs:
+  trigger_all:
+    name: Trigger 1 & 2
+    runs-on: ubuntu-latest
+    steps:
+      - name: Dispatch triggered1.yml
+        uses: peter-evans/workflow-dispatch@v2
+        with:
+          workflow: triggered1.yml
+          ref: main
+          repository: ${{ github.repository }}
+          token: ${{ secrets.GITHUB_TOKEN }}
+      - name: Dispatch triggered2.yml
+        uses: peter-evans/workflow-dispatch@v2
+        with:
+          workflow: triggered2.yml
+          ref: main
+          repository: ${{ github.repository }}
+          token: ${{ secrets.GITHUB_TOKEN }}
