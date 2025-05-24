@@ -48,8 +48,8 @@ jobs:
       - name: Create GitHub Release (Draft)
         uses: softprops/action-gh-release@v2
         with:
-          tag_name: ${{ github.event.inputs.tag }}
-          name: ${{ github.event.inputs.tag }}
+          tag_name: ${{ steps.get_latest_tag.outputs.tag }}
+          name: ${{ steps.get_latest_tag.outputs.tag }}
           body: ${{ env.RELEASE_BODY }}
           draft: true
           files: "./artifacts/*.zip"
