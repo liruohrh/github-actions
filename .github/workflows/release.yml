@@ -2,11 +2,6 @@ name: Release
 
 on:
   workflow_dispatch:
-    inputs:
-      tag:
-        description: "Release tag (e.g. v1.0.0)"
-        required: true
-        type: string
 
 jobs:
   release:
@@ -15,11 +10,9 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
-      - name: ls
-        id: ls
-        run: |
-          ls -al
-          ls -al /
+      - name: Get latest tag
+        id: get_latest_tag
+        uses: actions-ecosystem/action-get-latest-tag@v1
 
       #   - name: Download artifact
       #     uses: actions/download-artifact@v4
@@ -37,7 +30,7 @@ jobs:
       - name: Extract release notes from CHANGELOG.md
         id: extract_notes
         run: |
-          TAG="${{ github.event.inputs.tag }}"
+          TAG="${{ steps.get_latest_tag.outputs.tag }}"
           BODY=$(awk -v tag="$TAG" '
             BEGIN { found=0 }
             $0 ~ "^# "tag"$" { found=1; next }
@@ -56,4 +49,4 @@ jobs:
           name: ${{ github.event.inputs.tag }}
           body: ${{ env.RELEASE_BODY }}
           draft: true
-          files: "*.zip"
+          files: "./artifacts/*.zip"
