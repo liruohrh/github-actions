@@ -13,6 +13,7 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+
       - name: Get latest tag
         id: get_latest_tag
         uses: actions-ecosystem/action-get-latest-tag@v1
@@ -29,6 +30,7 @@ jobs:
           workflow_conclusion: success
           name: build_output
           path: ./artifacts
+
       # auto find release notes in CHANGELOG.md, start at `# tag`（not include `# tag`）， stop at `# next tag`
       - name: Extract release notes from CHANGELOG.md
         id: extract_notes

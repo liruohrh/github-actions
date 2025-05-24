@@ -4,25 +4,36 @@ on:
   workflow_dispatch:
 
 permissions:
-  contents: write
-  actions: write
+  contents: write # 用于 checkout & API 调用
+  actions: write # 用于触发其它 workflows
 
 jobs:
-  trigger_all:
-    name: Trigger 1 & 2
+  trigger:
     runs-on: ubuntu-latest
     steps:
-      - name: Dispatch triggered1.yml
-        uses: peter-evans/workflow-dispatch@v2
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Trigger triggered1.yml
+        uses: actions/github-script@v6
         with:
-          workflow: triggered1.yml
-          ref: main
-          repository: ${{ github.repository }}
-          token: ${{ secrets.GITHUB_TOKEN }}
-      - name: Dispatch triggered2.yml
-        uses: peter-evans/workflow-dispatch@v2
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          script: |
+            await github.actions.createWorkflowDispatch({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              workflow_id: 'triggered1.yml',  // 或者 workflow 文件名对应的 workflow_id
+              ref: 'main'
+            });
+
+      - name: Trigger triggered2.yml
+        uses: actions/github-script@v6
         with:
-          workflow: triggered2.yml
-          ref: main
-          repository: ${{ github.repository }}
-          token: ${{ secrets.GITHUB_TOKEN }}
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          script: |
+            await github.actions.createWorkflowDispatch({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              workflow_id: 'triggered2.yml',
+              ref: 'main'
+            });
