@@ -1,0 +1,37 @@
+name: Build
+
+on:
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Build project
+        run: npm run build
+
+      - name: Compress output
+        run: |
+          repo_name=$(basename $GITHUB_REPOSITORY)
+          mv dist "$repo_name"
+          zip -r "${repo_name}.zip" "$repo_name"
+          mkdir artifacts
+          mv "${repo_name}.zip" artifacts/"${repo_name}.zip"
+
+      - name: Upload artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: build_output
+          path: "artifacts/*.zip"
