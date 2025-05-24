@@ -1,4 +1,4 @@
-name: all
+name: Trigger All
 
 on:
   workflow_dispatch:
