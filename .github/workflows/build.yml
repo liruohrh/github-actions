@@ -35,3 +35,4 @@ jobs:
         with:
           name: build_output
           path: "artifacts/*.zip"
+          retention-days: 1
